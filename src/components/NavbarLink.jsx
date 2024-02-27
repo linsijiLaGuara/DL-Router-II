@@ -1,22 +1,21 @@
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
+import { NavLink } from "react-router-dom";
+import "./Navbarlink.css";
 
-function NavbarLink() {
+export default function Navbarlink() {
   return (
-    <>
-      <Navbar className="bg-body-tertiary">
-        <Container>
-          <Navbar.Brand href="#home">Brand link</Navbar.Brand>
-        </Container>
-      </Navbar>
-      <br />
-      <Navbar className="bg-body-tertiary">
-        <Container>
-          <Navbar.Brand>Brand text</Navbar.Brand>
-        </Container>
-      </Navbar>
-    </>
+    <Navbar className="bg-navb">
+      <Container>
+        <Navbar.Collapse id="navbar-nav ">
+          <NavLink className="nav-link" activeClassName="active" exact to="/Home">
+            Home
+          </NavLink>
+          <NavLink className="nav-link" activeClassName="active" to="/Pokemon">
+            Pokemon
+          </NavLink>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
-
-export default NavbarLink;

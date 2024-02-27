@@ -1,0 +1,19 @@
+.pokemon-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+}
+
+.pokemon-title {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.pokemon-image {
+    width: 200px;
+    /* Ajusta el tamaño según tu preferencia */
+    height: auto;
+    margin: 10px;
+}
