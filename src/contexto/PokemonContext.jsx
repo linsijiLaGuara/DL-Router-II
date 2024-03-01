@@ -1,46 +1,37 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useEffect, useState } from "react";
 
-const PokemonsContext = createContext();
+export const PokemonContext = createContext();
 
 export const PokemonsProvider = ({ children }) => {
-  const [pokemons, setPokemons] = useState([]);
-  const [seleccion, setSeleccion] = useState([]);
-  const fetchPokemons = async () => {
-    try {
-      const response = await fetch("https://pokeapi.co/api/v2/pokemon/25");
-      if (!response.ok) {
-        throw new Error(`Failed to fetch: ${response.status}`);
+  const [pokemon, setPokemon] = useState([]);
+
+  const FetchPokemon = async () => {
+    const pokemonsJson = await fetch("https://pokeapi.co/api/v2/pokemon");
+    const { results } = await pokemonsJson.json();
+    const pokemonData = results.map(
+      ({ id, name, status, species, type, gender, image }) => {
+        return {
+          id,
+          name,
+          status,
+          species,
+          type,
+          gender,
+          image,
+        };
       }
+    );
 
-      const { name, sprites } = await response.json();
-      const frontDefaultSprite =
-        sprites?.front_default ||
-        sprites?.other["official-artwork"]?.front_default;
-
-      const pokemonData = {
-        name,
-        img: frontDefaultSprite,
-      };
-
-      setPokemons([pokemonData]);
-    } catch (error) {
-      console.error("Error fetching Pokemon:", error);
-    }
+    setPokemon(pokemonData);
   };
 
   useEffect(() => {
-    fetchPokemons();
+    FetchPokemon();
   }, []);
 
   return (
-    <PokemonsContext.Provider
-      value={{ pokemons, setPokemons, seleccion, setSeleccion }}
-    >
+    <PokemonContext.Provider value={{ pokemon, setPokemon }}>
       {children}
-    </PokemonsContext.Provider>
+    </PokemonContext.Provider>
   );
-};
-
-export const usePokemonsContext = () => {
-  return useContext(PokemonsContext);
 };

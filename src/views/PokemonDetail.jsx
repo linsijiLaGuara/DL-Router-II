@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { useParams } from "react-router-dom";
-import { usePokemonsContext } from "../contexto/PokemonContext";
+import { PokemonContext } from "../contexto/PokemonContext";
 
 export const PokemonDetail = () => {
-  const { pokemons } = usePokemonsContext();
-  const { name } = useParams();
+  const { pokemons } = useContext(PokemonContext);
+  const { id } = useParams();
 
   const pokemonDetail = pokemons.find((pokemon) => pokemon.name === id);
 
@@ -12,7 +12,7 @@ export const PokemonDetail = () => {
     <div>
       {pokemonDetail ? (
         <>
-          <h1>Pokémon Detail / {name}</h1>
+          <h1>Pokémon Detail / {id}</h1>
           <div className="flex flex-col gap-3 p-3">
             <h1>{pokemonDetail.name}</h1>
             <figure>

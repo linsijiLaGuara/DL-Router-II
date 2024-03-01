@@ -1,41 +1,45 @@
+// PokemonList.js
 import React, { useContext, useState } from "react";
-import { usePokemonsContext } from "../contexto/PokemonContext";
+import { PokemonContext } from "../contexto/PokemonContext";
 import { useNavigate } from "react-router-dom";
 
-export const Pokemon = () => {
-  const { pokemons } = usePokemonsContext();
+const PokemonList = () => {
   const [selectedPokemon, setSelectedPokemon] = useState(null);
+
+  const { pokemon } = useContext(PokemonContext);
+  const pokemonNames = pokemon.map(({ name, id }) => ({ id, name }));
 
   const navigate = useNavigate();
 
   const handleChangePokemon = (event) => {
+    event.preventDefault();
     const { value } = event.target;
-    setSelectedPokemon(value);
+    setSelectedPokemon(Number(value));
   };
 
   const handleViewPokemonDetails = () => {
     if (selectedPokemon) {
-      navigate(`/pokemons/${selectedPokemon}`);
+      navigate(`/Pokemon/${selectedPokemon}`);
     } else {
-      alert("Ey!! Selecciona un Pokémon");
+      alert("¡Ey! Selecciona un Pokémon");
     }
   };
 
   return (
     <div>
-      <h1>Pokémon following</h1>
+      <h1>Busca tu Pokémon </h1>
       <div className="flex flex-wrap gap-3 p-3">
         <select
-          name="pokemons"
-          id="pokemons"
+          name="pokemon"
+          id="pokemon"
           onChange={handleChangePokemon}
           defaultValue="option"
         >
-          <option value="option" disabled>
+          <option key="default" value="option" disabled>
             Select a Pokémon
           </option>
-          {pokemons.length &&
-            pokemons.map(({ name, id }) => (
+          {pokemonNames.length &&
+            pokemonNames.map(({ id, name }) => (
               <option key={id} value={id}>
                 {name}
               </option>
@@ -47,10 +51,11 @@ export const Pokemon = () => {
           onClick={handleViewPokemonDetails}
           className="rounded p-2 bg-green-500 font-black"
         >
-          Ver detalles
+          View Details
         </button>
       </div>
     </div>
   );
 };
-export default Pokemon;
+
+export default PokemonList;
