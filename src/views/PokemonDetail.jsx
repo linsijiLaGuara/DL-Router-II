@@ -6,7 +6,7 @@ export const PokemonDetail = () => {
   const { pokemons } = useContext(PokemonContext);
   const { id } = useParams();
 
-  const pokemonDetail = pokemons.find((pokemon) => pokemon.id == id);
+  const pokemonDetail = pokemons.find((pokemon) => pokemon.name === id);
 
   return (
     <div>
@@ -16,11 +16,13 @@ export const PokemonDetail = () => {
           <div className="flex flex-col gap-3 p-3">
             <h1>{pokemonDetail.name}</h1>
             <figure>
-              <img
-                loading="lazy"
-                src={pokemonDetail.image}
-                alt={pokemonDetail.species}
-              />
+              {pokemons.image && (
+                <img
+                  loading="lazy"
+                  src={pokemons.image}
+                  alt={pokemonDetail.species}
+                />
+              )}
               <figcaption>{pokemonDetail.gender}</figcaption>
             </figure>
 
@@ -37,7 +39,7 @@ export const PokemonDetail = () => {
           </div>
         </>
       ) : (
-        <h1>Loading Pokemons</h1>
+        <h1>Loading Pokemon</h1>
       )}
     </div>
   );

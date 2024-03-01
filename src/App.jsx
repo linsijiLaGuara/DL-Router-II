@@ -1,7 +1,7 @@
 // App.js
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Navbarlink from "./components/Navbarlink";
+import Navbarlink from './components/NavbarLink'
 import Home from "./views/Home";
 import PokemonList from "./views/PokemonList";
 import PokemonDetail from "./views/PokemonDetail";

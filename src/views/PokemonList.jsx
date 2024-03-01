@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { PokemonContext } from "../contexto/PokemonContext";
 
 const PokemonList = () => {
-  console.log("Rendering PokemonList");
-  const [pokemon, setPokemon] = useState(null);
+  const [pokemon, setPokemon] = useState("");
 
   const { pokemons } = useContext(PokemonContext);
   console.log("Pokemons from context:", pokemons);
+
   const pokemonNames = pokemons.map(({ name, id }) => ({
     id,
     name,
@@ -18,12 +18,13 @@ const PokemonList = () => {
   const handleChangePokemon = (event) => {
     event.preventDefault();
     const { value } = event.target;
-    setPokemon(Number(value));
+    setPokemon(value);
   };
 
   const handleViewPokemonDetails = () => {
-    if (pokemons) {
-      navigate(`/Pokemon/${pokemons}`);
+    if (pokemon) {
+      // Utilizamos el nombre en lugar del ID en la URL
+      navigate(`/Pokemon/${pokemon}`);
     } else {
       alert("¡Ey! Selecciona un Pokémon");
     }
@@ -37,14 +38,14 @@ const PokemonList = () => {
           name="pokemons"
           id="pokemons"
           onChange={handleChangePokemon}
-          defaultValue="option"
+          value={pokemon}
         >
-          <option value="option" disabled>
+          <option value="" disabled>
             Selecciona un Pokémon
           </option>
           {pokemonNames.length &&
             pokemonNames.map(({ id, name }) => (
-              <option key={id} value={id}>
+              <option key={id} value={name}>
                 {name}
               </option>
             ))}
