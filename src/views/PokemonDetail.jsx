@@ -1,8 +1,10 @@
 import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
 import { PokemonContext } from "../contexto/PokemonContext";
+import Card from "react-bootstrap/Card";
+import Figure from "react-bootstrap/Figure";
 
-export const PokemonDetail = () => {
+const PokemonDetail = () => {
   const { pokemons } = useContext(PokemonContext);
   const { id } = useParams();
 
@@ -12,31 +14,23 @@ export const PokemonDetail = () => {
     <div>
       {pokemonDetail ? (
         <>
-          <h1>User Detail / {id}</h1>
-          <div className="flex flex-col gap-3 p-3">
-            <h1>{pokemonDetail.name}</h1>
-            <figure>
-              {pokemons.image && (
-                <img
-                  loading="lazy"
-                  src={pokemons.image}
-                  alt={pokemonDetail.species}
-                />
-              )}
-              <figcaption>{pokemonDetail.gender}</figcaption>
-            </figure>
-
-            <div>
-              <p>{pokemonDetail.status}</p>
-            </div>
-
-            <div>
-              <p>
-                Type:{" "}
-                {pokemonDetail.type ? pokemonDetail.type : "Doesn't have type"}
-              </p>
-            </div>
-          </div>
+          <Card>
+            <Card.Body>
+              <div className="flex flex-col gap-3 p-3">
+                <h1>{pokemonDetail.name}</h1>
+                <Figure>
+                  {pokemons.image && (
+                    <Figure.Image
+                      loading="lazy"
+                      src={pokemons.image}
+                      alt={pokemonDetail.species}
+                    />
+                  )}
+                  <Figure.Caption>{pokemonDetail.gender}</Figure.Caption>
+                </Figure>
+              </div>
+            </Card.Body>
+          </Card>
         </>
       ) : (
         <h1>Loading Pokemon</h1>
