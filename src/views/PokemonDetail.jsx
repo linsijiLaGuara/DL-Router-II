@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
 import { PokemonContext } from "../contexto/PokemonContext";
 
@@ -6,26 +6,26 @@ export const PokemonDetail = () => {
   const { pokemons } = useContext(PokemonContext);
   const { id } = useParams();
 
-  const pokemonDetail = pokemons.find((pokemon) => pokemon.name === id);
+  const pokemonDetail = pokemons.find((pokemon) => pokemon.id == id);
 
   return (
     <div>
       {pokemonDetail ? (
         <>
-          <h1>Pokémon Detail / {id}</h1>
+          <h1>User Detail / {id}</h1>
           <div className="flex flex-col gap-3 p-3">
             <h1>{pokemonDetail.name}</h1>
             <figure>
               <img
                 loading="lazy"
-                src={pokemonDetail.img}
-                alt={pokemonDetail.name}
+                src={pokemonDetail.image}
+                alt={pokemonDetail.species}
               />
-              <figcaption>{pokemonDetail.species}</figcaption>
+              <figcaption>{pokemonDetail.gender}</figcaption>
             </figure>
 
             <div>
-              <p>Status: {pokemonDetail.status}</p>
+              <p>{pokemonDetail.status}</p>
             </div>
 
             <div>
@@ -37,9 +37,10 @@ export const PokemonDetail = () => {
           </div>
         </>
       ) : (
-        <h1>Loading Pokémon</h1>
+        <h1>Loading Pokemons</h1>
       )}
     </div>
   );
 };
+
 export default PokemonDetail;

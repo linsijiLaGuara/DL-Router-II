@@ -1,4 +1,3 @@
-import { useContext } from "react";
 import { Card } from "react-bootstrap";
 import "./PokemonCard.css";
 import PikachuImage from "../assets/img/pikachu.png";

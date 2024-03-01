@@ -1,25 +1,29 @@
-// PokemonList.js
 import React, { useContext, useState } from "react";
-import { PokemonContext } from "../contexto/PokemonContext";
 import { useNavigate } from "react-router-dom";
+import { PokemonContext } from "../contexto/PokemonContext";
 
 const PokemonList = () => {
-  const [selectedPokemon, setSelectedPokemon] = useState(null);
+  console.log("Rendering PokemonList");
+  const [pokemon, setPokemon] = useState(null);
 
-  const { pokemon } = useContext(PokemonContext);
-  const pokemonNames = pokemon.map(({ name, id }) => ({ id, name }));
+  const { pokemons } = useContext(PokemonContext);
+  console.log("Pokemons from context:", pokemons);
+  const pokemonNames = pokemons.map(({ name, id }) => ({
+    id,
+    name,
+  }));
 
   const navigate = useNavigate();
 
   const handleChangePokemon = (event) => {
     event.preventDefault();
     const { value } = event.target;
-    setSelectedPokemon(Number(value));
+    setPokemon(Number(value));
   };
 
   const handleViewPokemonDetails = () => {
-    if (selectedPokemon) {
-      navigate(`/Pokemon/${selectedPokemon}`);
+    if (pokemons) {
+      navigate(`/Pokemon/${pokemons}`);
     } else {
       alert("¡Ey! Selecciona un Pokémon");
     }
@@ -27,16 +31,16 @@ const PokemonList = () => {
 
   return (
     <div>
-      <h1>Busca tu Pokémon </h1>
+      <h1>Elige tu Pokémon</h1>
       <div className="flex flex-wrap gap-3 p-3">
         <select
-          name="pokemon"
-          id="pokemon"
+          name="pokemons"
+          id="pokemons"
           onChange={handleChangePokemon}
           defaultValue="option"
         >
-          <option key="default" value="option" disabled>
-            Select a Pokémon
+          <option value="option" disabled>
+            Selecciona un Pokémon
           </option>
           {pokemonNames.length &&
             pokemonNames.map(({ id, name }) => (
@@ -51,7 +55,7 @@ const PokemonList = () => {
           onClick={handleViewPokemonDetails}
           className="rounded p-2 bg-green-500 font-black"
         >
-          View Details
+          Ver detalles
         </button>
       </div>
     </div>

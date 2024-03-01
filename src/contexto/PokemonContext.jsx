@@ -1,36 +1,40 @@
-import { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 
 export const PokemonContext = createContext();
 
 export const PokemonsProvider = ({ children }) => {
-  const [pokemon, setPokemon] = useState([]);
+  const [pokemons, setPokemons] = useState([]);
 
-  const FetchPokemon = async () => {
-    const pokemonsJson = await fetch("https://pokeapi.co/api/v2/pokemon");
-    const { results } = await pokemonsJson.json();
-    const pokemonData = results.map(
-      ({ id, name, status, species, type, gender, image }) => {
-        return {
-          id,
-          name,
-          status,
-          species,
-          type,
-          gender,
-          image,
-        };
-      }
-    );
+  const fetchPokemons = async () => {
+    try {
+      const pokemonsJson = await fetch("https://pokeapi.co/api/v2/pokemon");
+      const { results } = await pokemonsJson.json();
+      const pokemonData = results.map(
+        ({ id, name, status, species, type, gender, image }) => {
+          return {
+            id,
+            name,
+            status,
+            species,
+            type,
+            gender,
+            image,
+          };
+        }
+      );
 
-    setPokemon(pokemonData);
+      setPokemons(pokemonData);
+    } catch (error) {
+      console.error("Error fetching pokemons:", error);
+    }
   };
 
   useEffect(() => {
-    FetchPokemon();
+    fetchPokemons();
   }, []);
 
   return (
-    <PokemonContext.Provider value={{ pokemon, setPokemon }}>
+    <PokemonContext.Provider value={{ pokemons, setPokemons }}>
       {children}
     </PokemonContext.Provider>
   );
