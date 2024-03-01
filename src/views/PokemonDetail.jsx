@@ -16,7 +16,7 @@ const PokemonDetail = () => {
         <>
           <Card>
             <Card.Body>
-              <div className="flex flex-col gap-3 p-3">
+              <div className="flex flex-col gap-3 p-3 text-align-center;">
                 <h1>{pokemonDetail.name}</h1>
                 <Figure>
                   {pokemons.image && (

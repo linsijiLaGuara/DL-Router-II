@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { PokemonContext } from "../contexto/PokemonContext";
+import "./PokemonList.css"; // Importa el archivo CSS
 
 const PokemonList = () => {
   const [pokemon, setPokemon] = useState("");
@@ -16,7 +17,6 @@ const PokemonList = () => {
 
   useEffect(() => {
     if (pokemon) {
-
       navigate(`/Pokemon/${pokemon}`);
     }
   }, [pokemon, navigate]);
@@ -24,7 +24,7 @@ const PokemonList = () => {
   return (
     <div>
       <h1>Elige tu Pokémon</h1>
-      <div className="flex flex-wrap gap-3 p-3">
+      <div className="select-container">
         <select
           name="pokemons"
           id="pokemons"
