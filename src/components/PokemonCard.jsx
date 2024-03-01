@@ -9,11 +9,9 @@ const PokemonCard = () => {
   const renderPokemons = () => {
     return pokemons.map((pokemon) => (
       <div key={pokemon.name} className="pokemon-container">
-        <Card>
-          <Card.Body></Card.Body>
+        <Card style={{ width: "18rem" }}>
           <Card.Img
             className="pokemon-image"
-            variant="top"
             src={pokemon.img}
             alt={pokemon.name}
           />

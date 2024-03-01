@@ -7,7 +7,7 @@ export const PokemonsProvider = ({ children }) => {
   const [seleccion, setSeleccion] = useState([]);
   const fetchPokemons = async () => {
     try {
-      const response = await fetch("https://pokeapi.co/api/v2/pokemon/1");
+      const response = await fetch("https://pokeapi.co/api/v2/pokemon/25");
       if (!response.ok) {
         throw new Error(`Failed to fetch: ${response.status}`);
       }

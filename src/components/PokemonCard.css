@@ -6,14 +6,7 @@
     margin: 20px;
 }
 
-.pokemon-title {
-    text-align: center;
-    margin-top: 10px;
-}
-
 .pokemon-image {
-    width: 200px;
-    /* Ajusta el tamaño según tu preferencia */
+    width: 100%;
     height: auto;
-    margin: 10px;
 }
